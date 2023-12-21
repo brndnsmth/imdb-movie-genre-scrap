@@ -33,31 +33,6 @@ def scrape_page(url):
 
     return items
 
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
-    }
-
-    response = requests.get(url, headers=headers)
-    if response.status_code != 200:
-        print("Failed to retrieve the page.")
-        return []
-
-    soup = BeautifulSoup(response.text, 'html.parser')
-    items = []
-
-    # Find and extract data from each item on the page
-    for item in soup.find_all(class_='lister-item'):
-        title = item.find(class_='lister-item-header').find('a').text
-        year = item.find(class_='lister-item-year').text.strip('()')
-        rating = item.find(class_='ratings-imdb-rating').text.strip()
-        items.append({
-            'title': title,
-            'year': year,
-            'rating': rating
-        })
-
-    return items
-
 
 # Genre you want to scrape (default is 'horror')
 # Reference other genres  here: https://www.imdb.com/feature/genre/
